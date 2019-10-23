@@ -1,7 +1,8 @@
 FROM python:3
 
-ADD hello.py /
 
-RUN pip install pystrich
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
 
-CMD [ "python", "./hello.py" ]
+CMD [ "python", "/app/src/scheduler.py" ]
