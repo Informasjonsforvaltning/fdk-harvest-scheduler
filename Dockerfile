@@ -1,8 +1,11 @@
 FROM python:3
 
+RUN apt-get update && apt-get -y install cron
 
 COPY . /app
 WORKDIR /app
-RUN pip install -r requirements.txt
+RUN pip install pipenv
+RUN pipenv install
 
-CMD [ "python", "/app/src/scheduler.py" ]
+RUN pipenv run python src/scheduler.py
+CMD cron && tail -f /app/cron.log
