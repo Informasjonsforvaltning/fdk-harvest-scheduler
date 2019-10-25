@@ -38,5 +38,6 @@ jobs:
         args: auth configure docker -q
     - name: Push to GCP
       uses: actions/gcloud/cli@master
-      runs: "sh -c"
-      args: docker push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+      with:
+        runs: "sh -c"
+        args: docker push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
