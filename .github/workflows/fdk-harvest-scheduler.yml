@@ -34,3 +34,11 @@ jobs:
         name: dcat/fdk-harvest-scheduler
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        #registry: eu.gcr.io/fdk-infra/
+    - name: Push docker image to Google Cloud
+      uses: exelban/gcloud@master
+      env:
+        PROJECT_ID: fdk-infra
+        APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
+      with:
+        args: info
