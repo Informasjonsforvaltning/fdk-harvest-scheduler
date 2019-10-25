@@ -41,4 +41,4 @@ jobs:
         PROJECT_ID: fdk-infra
         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
       with:
-        args: info
+        args: docker push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
