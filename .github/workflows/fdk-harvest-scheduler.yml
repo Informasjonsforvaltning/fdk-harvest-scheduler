@@ -29,14 +29,14 @@ jobs:
         pip install pytest
         pytest
     - name: Authenticate with Google Cloud
-      uses: exelban/gcloud@master
-      env:
-        PROJECT_ID: fdk-infra
-        APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
+      uses: actions/gcloud/auth@master
       with:
-        args: auth configure-docker -q
-    - name: Build and push Docker image
-      uses: elgohr/Publish-Docker-Github-Action@master
+        secrets: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
+    - name: Authorise Docker on GCP
+      uses: actions/gcloud/cli@master
       with:
-        name: fdk-harvest-scheduler
-        registry: eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+        args: auth configure docker -q
+    - name: Push to GCP
+      uses: actions/gcloud/cli@master
+      runs: "sh -c"
+      args: "docker push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
