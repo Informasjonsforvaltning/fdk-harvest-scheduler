@@ -1,4 +1,4 @@
 crontab
 pika
 pathlib
-os
+os==latest
