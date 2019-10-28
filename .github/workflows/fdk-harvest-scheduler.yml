@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Connect to Google Cloud
-    - uses: actions-hub/gcloud@master
+      uses: actions-hub/gcloud@master
       env:
         PROJECT_ID: fdk-dev
         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
