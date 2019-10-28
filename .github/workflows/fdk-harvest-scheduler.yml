@@ -9,10 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Authenticate with Google Cloud
-      uses: actions/gcloud/auth@master
+    - name: Connect to Google Cloud
+    - uses: actions-hub/gcloud@master
+      env:
+        PROJECT_ID: fdk-dev
+        APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
       with:
-        secrets: ${{secrets.GCP_SA_FDK_JENKINS_GCR}}
+        args: info
 
 
 
