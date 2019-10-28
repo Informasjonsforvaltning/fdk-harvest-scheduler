@@ -15,7 +15,7 @@ jobs:
         PROJECT_ID: fdk-infra
         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
       with:
-        args: info
+        args: auth configure-docker -q
 
 
 
