@@ -35,14 +35,12 @@ jobs:
          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
        with:
          args: auth configure-docker -q
-     - name: Push Docker image
-       uses: elgohr/Publish-Docker-Github-Action@master
+     - name: Push docker image to Google Cloud
+       uses: actions/gcloud/cli@master
        with:
-         name: fdk-harvest-scheduler
-         registry: eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
-         username: fdk-jenkins-gcr
-
-
-
-
-
+         runs: "sh -c"
+         env: {
+                  PROJECT_ID = "fdk-infra"
+                  APPLICATION_NAME = "myproject"
+                }
+         args: "docker push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest"
