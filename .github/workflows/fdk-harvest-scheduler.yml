@@ -35,7 +35,11 @@ jobs:
          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
        with:
          args: auth configure-docker -q
-
+     - name: Push Docker image
+       uses: elgohr/Publish-Docker-Github-Action@master
+       with:
+         name: fdk-harvest-scheduler
+         registry: eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
 
 
 
