@@ -28,6 +28,10 @@ jobs:
        run: |
          pip install pytest
          pytest
+     - name: Build Docker image
+       uses: elgohr/Publish-Docker-Github-Action@master
+       with:
+         name: dcat/fdk-harvest-scheduler
      - name: Connect to Google Cloud
        uses: actions-hub/gcloud@master
        env:
