@@ -31,7 +31,7 @@ jobs:
     - name: Authenticate with Google Cloud
       uses: actions/gcloud/auth@master
       with:
-        secrets: ${base64 { secrets.GCP_SA_FDK_JENKINS_GCR }}
+        secrets: ${{ GCP_SA_FDK_JENKINS_GCR }}
     - name: Authorise Docker on GCP
       uses: actions/gcloud/cli@master
       with:
