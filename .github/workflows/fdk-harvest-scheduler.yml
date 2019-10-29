@@ -53,6 +53,6 @@ jobs:
        with:
          args: container clusters get-credentials fdk-dev --region europe-north1-a
      - uses: stefanprodan/kube-tools@v1
-         with:
-           kubectl: 1.16.2
-           command: kubectl version --client
+       with:
+         kubectl: 1.16.2
+         command: kubectl version --client
