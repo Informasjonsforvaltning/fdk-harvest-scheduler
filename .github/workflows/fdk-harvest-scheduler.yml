@@ -51,6 +51,7 @@ jobs:
          PROJECT_ID: fdk-dev
          APPLICATION_CREDENTIALS: ${{ secrets.FDK_DEV_AUTODEPLOY }}
        with:
+         args: gcloud config set project fdk-dev
          args: container clusters get-credentials fdk-dev --region europe-north1-a
      - uses: stefanprodan/kube-tools@v1
        with:
