@@ -55,4 +55,4 @@ jobs:
       uses: stefanprodan/kube-tools@v1
          with:
            kubectl: 1.16.2
-           command: kubectl version client
+           command: kubectl version --client
