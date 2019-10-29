@@ -63,4 +63,4 @@ jobs:
        env:
          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
        with:
-         args: "apply -f ./kubectlapply.yaml"
+         args: "apply -f /github/workspace/kubectlapply.yaml"
