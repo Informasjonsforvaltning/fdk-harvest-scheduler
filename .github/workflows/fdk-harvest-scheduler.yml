@@ -45,6 +45,12 @@ jobs:
        with:
          runs: "sh -c"
          args: "docker -- push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest"
+     - name: Apply Helm template
+       uses: stefanprodan/kube-tools@v1
+         with:
+           helm: 2.14.3
+           command: |
+             helm version --client
      - name: Deploy to staging
        uses: steebchen/kubectl@master
        env:
