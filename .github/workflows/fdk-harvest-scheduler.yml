@@ -45,20 +45,9 @@ jobs:
        with:
          runs: "sh -c"
          args: "docker -- push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest"
-     - name: Deploy to Kubernetes staging
-       uses: actions-hub/gcloud@master
+     - name: Deploy to staging
+       uses: steebchen/kubectl@master
        env:
-         PROJECT_ID: fdk-dev
-         APPLICATION_CREDENTIALS: ${{ secrets.FDK_DEV_AUTODEPLOY }}
+         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
        with:
-         args: config set project fdk-dev
-     - uses: actions-hub/gcloud@master
-       env:
-         PROJECT_ID: fdk-dev
-         APPLICATION_CREDENTIALS: ${{ secrets.FDK_DEV_AUTODEPLOY }}
-       with:
-         args: container clusters get-credentials fdk-dev --region europe-north1-a
-     - uses: stefanprodan/kube-tools@v1
-       with:
-         kubectl: 1.16.2
-         command: kubectl version --client
+         args: cluster-info
