@@ -69,4 +69,4 @@ jobs:
        env:
          KUBECONFIG: '/github/workspace/.kube/config'
        with:
-         args: "apply -f ./kubectlapply.yaml"
+         args: "apply -f ./kubectlapply.yaml --force"
