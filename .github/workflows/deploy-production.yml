@@ -13,7 +13,7 @@ jobs:
     steps:
      - uses: actions/checkout@v1
      - name: Build Docker image
-       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest --tag dcatno/fdk-harvest-scheduler:production_latest
+       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:production_latest
      - name: Connect to Google Cloud
        uses: actions-hub/gcloud@master
        env:
