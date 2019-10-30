@@ -30,13 +30,13 @@ jobs:
 #         pytest
 #     - name: Build Docker image
 #       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
-#     - name: Connect to Google Cloud
-#       uses: actions-hub/gcloud@master
-#       env:
-#         PROJECT_ID: fdk-infra
-#         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
-#       with:
-#         args: auth configure-docker -q
+     - name: Connect to Google Cloud
+       uses: actions-hub/gcloud@master
+       env:
+         PROJECT_ID: fdk-infra
+         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_FDK_JENKINS_GCR }}
+       with:
+         args: auth configure-docker -q
 #     - name: Push docker image to Google Cloud
 #       uses: actions/gcloud/cli@master
 #       env:
