@@ -1,6 +1,9 @@
-name: Python application
+name: Deploy to staging when pull request is approved
 
-on: [push]
+on:
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   build:
@@ -8,31 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - uses: actions/checkout@v1
-     - name: Set up Python 3.7
-       uses: actions/setup-python@v1
-       with:
-         python-version: 3.7
-     - name: Install dependencies
-       run: |
-         python -m pip install --upgrade pip
-     - name: Lint with flake8
-       run: |
-         pip install flake8
-         # stop the build if there are Python syntax errors or undefined names
-         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-     - name: Test with pytest
-       run: |
-         pip install pytest
-         pytest
-     - name: Notify slack of build
+     - name: Label when pull request is approved
+       uses: pullreminders/label-when-approved-action@master
        env:
-         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-       uses: pullreminders/slack-action@master
-       with:
-        args: '{\"channel\":\"C7NTH118T\",\"text\":\"Application fdk-harvest-scheduler built\"}'
+         APPROVALS: "1"
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         ADD_LABEL: "deploy_staging"
+     - uses: actions/checkout@v1
      - name: Build Docker image
        run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
      - name: Connect to Google Cloud
