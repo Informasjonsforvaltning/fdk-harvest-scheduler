@@ -63,7 +63,7 @@ jobs:
        with:
          application_credentials: ${{ secrets.FDK_DEV_AUTODEPLOY }}
          project_id: fdk-dev
-         location_zone: europe-north1
+         location_zone: europe-north1-a
          cluster_name: fdk-dev
      - name: Deploy to staging
        uses: docker://bitnami/kubectl:latest
