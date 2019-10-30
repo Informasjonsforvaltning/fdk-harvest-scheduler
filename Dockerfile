@@ -1,7 +1,12 @@
 FROM python:3
 
-ADD hello.py /
+RUN apt-get update && apt-get -y install cron
 
-RUN pip install pystrich
+COPY . /app
+WORKDIR /app
+RUN pip install pipenv
+RUN pipenv install
+RUN touch /app/cron.log
 
-CMD [ "python", "./hello.py" ]
+RUN pipenv run python src/scheduler.py
+CMD cron && tail -f /app/cron.log
