@@ -58,7 +58,7 @@ jobs:
 #           chmod o+w ./kubectlapply.yaml
 #           pwd
 #           ls -l
-     - name: Deploy to staging
+     - name: Deploy to staging test
        uses: steebchen/kubectl@master
        env:
          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
