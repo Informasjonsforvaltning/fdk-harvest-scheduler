@@ -1,9 +1,9 @@
-name: Deploy to staging when pull request is approved
+name: Deploy to production
 
 on:
-  pull_request_review:
-    types:
-      - submitted
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -11,15 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Label when pull request is approved
-       uses: pullreminders/label-when-approved-action@master
-       env:
-         APPROVALS: "1"
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         ADD_LABEL: "deploy_staging"
      - uses: actions/checkout@v1
      - name: Build Docker image
-       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest --tag dcatno/fdk-harvest-scheduler:production_latest
      - name: Connect to Google Cloud
        uses: actions-hub/gcloud@master
        env:
@@ -43,18 +37,18 @@ jobs:
            helm init --client-only
            helm repo add fdk https://informasjonsforvaltning.github.io/helm-chart/
            helm fetch --untar --untardir ./helm fdk/fdk-harvest-scheduler
-           helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest" -f ./helm/fdk-harvest-scheduler/values/staging.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
+           helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest" -f ./helm/fdk-harvest-scheduler/values/production.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
            cat ./kubectlapply.yaml
            chmod o+w ./kubectlapply.yaml
            cat kubectlapply.yaml
      - name: Get kubeconfig file from GKE
        uses: machine-learning-apps/gke-kubeconfig@master
        with:
-         application_credentials: ${{ secrets.FDK_DEV_AUTODEPLOY }}
-         project_id: fdk-dev
+         application_credentials: ${{ secrets.FDK_PROD_AUTODEPLOY }}
+         project_id: fdk-prod
          location_zone: europe-north1-a
-         cluster_name: fdk-dev
-     - name: Deploy to staging
+         cluster_name: fdk-prod
+     - name: Deploy to production
        uses: docker://bitnami/kubectl:latest
        env:
          KUBECONFIG: '/github/workspace/.kube/config'
@@ -65,4 +59,4 @@ jobs:
          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
        uses: pullreminders/slack-action@master
        with:
-         args: '{\"channel\":\"C7NTH118T\",\"text\":\"Application fdk-harvest-scheduler deployed to staging\"}'
+         args: '{\"channel\":\"C7NTH118T\",\"text\":\"Application fdk-harvest-scheduler deployed to production\"}'

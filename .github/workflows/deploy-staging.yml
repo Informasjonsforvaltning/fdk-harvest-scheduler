@@ -1,9 +1,8 @@
 name: Deploy to staging when pull request is approved
 
 on:
-  pull_request_review:
-    types:
-      - submitted
+  check_run:
+    types: [completed]
 
 jobs:
   build:
@@ -11,15 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Label when pull request is approved
-       uses: pullreminders/label-when-approved-action@master
-       env:
-         APPROVALS: "1"
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         ADD_LABEL: "deploy_staging"
      - uses: actions/checkout@v1
      - name: Build Docker image
-       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+       run: docker build . --tag dcatno/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:staging_latest
      - name: Connect to Google Cloud
        uses: actions-hub/gcloud@master
        env:
