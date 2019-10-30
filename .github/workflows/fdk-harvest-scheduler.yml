@@ -56,8 +56,6 @@ jobs:
            helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest" -f ./helm/fdk-harvest-scheduler/values/staging.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
            cat ./kubectlapply.yaml
            chmod o+w ./kubectlapply.yaml
-           pwd
-           ls -l
      - name: Get kubeconfig file from GKE
        uses: machine-learning-apps/gke-kubeconfig@master
        with:
