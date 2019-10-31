@@ -1,9 +1,6 @@
 name: Deploy to it1
 
-on:
-  push:
-    branches:
-      - master
+on: ['deployment']
 
 jobs:
   build:
