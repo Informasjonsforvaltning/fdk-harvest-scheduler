@@ -5,7 +5,7 @@ on: ['deployment']
 
 
 jobs:
-  build:
+  deployment:
 
     runs-on: ubuntu-latest
 
