@@ -1,4 +1,4 @@
-name: Deploy to staging when triggered when pull request is approved
+name: Deploy to staging when pull request is approved
 
 on:
 - pull_request
