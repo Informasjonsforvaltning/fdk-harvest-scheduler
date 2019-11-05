@@ -1,7 +1,8 @@
 name: Deploy to demo
 
 
-on: ['deployment']
+on: #['deployment']
+- pull_request
 
 
 jobs:
