@@ -1,7 +1,6 @@
 name: Deploy to it1
 
-on: #['deployment']
-- pull_request
+on: ['deployment']
 
 jobs:
   build:
