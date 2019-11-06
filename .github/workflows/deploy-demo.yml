@@ -44,9 +44,9 @@ jobs:
        uses: machine-learning-apps/gke-kubeconfig@master
        with:
          application_credentials: ${{ secrets.FDK_DEV_AUTODEPLOY }}
-         project_id: fdk-demo
+         project_id: fdk-dev
          location_zone: europe-north1-a
-         cluster_name: fdk-demo
+         cluster_name: fdk-dev
      - name: Deploy to demo
        uses: docker://bitnami/kubectl:latest
        env:
