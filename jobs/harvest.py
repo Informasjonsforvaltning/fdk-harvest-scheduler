@@ -14,7 +14,7 @@ if __name__ == '__main__':
     channel = connection.channel()
 
     exchange = 'harvests'
-    routing_key = 'ConceptAll.HarvestTrigger'
+    routing_key = 'concept.all.HarvestTrigger'
 
     channel.exchange_declare(exchange=exchange, exchange_type='topic')
 
