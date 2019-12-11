@@ -20,6 +20,9 @@ jobs:
           service_account_email: ${{ secrets.GCP_SA_FDK_JENKINS_GCR_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_FDK_JENKINS_GCR_KEY }}
 
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: gcloud auth configure-docker
+
       - name: Build Docker image with GitHub commit sha tag and staging tag
         run: docker build . -t eu.gcr.io/fdk-infra/fdk-harvest-scheduler:$GITHUB_SHA --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:staging_latest
 
