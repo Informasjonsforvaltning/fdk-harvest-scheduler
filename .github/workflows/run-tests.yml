@@ -1,6 +1,9 @@
-name: Build Python application
+name: Run tests
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - master
 
 jobs:
   build:
@@ -27,9 +30,3 @@ jobs:
        run: |
          pip install pytest
          pytest
-     - name: Notify slack of build
-       env:
-         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-       uses: pullreminders/slack-action@master
-       with:
-        args: '{\"channel\":\"C7NTH118T\",\"text\":\"Application fdk-harvest-scheduler built\"}'
