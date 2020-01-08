@@ -24,7 +24,7 @@ jobs:
      - run: gcloud auth configure-docker
 
      - name: Build Docker image with latest tag
-       run: docker build . --tag eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+       run: docker build . -t eu.gcr.io/fdk-infra/fdk-harvest-scheduler:$GITHUB_SHA -t eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
 
      - uses: actions/setup-python@v1
        with:
@@ -36,7 +36,7 @@ jobs:
          pytest
 
      - name: Publish docker image to Google Cloud
-       run: docker -- push eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+       run: docker -- push eu.gcr.io/fdk-infra/fdk-harvest-scheduler
 
      - name: Apply Helm template
        uses: stefanprodan/kube-tools@v1
@@ -46,7 +46,7 @@ jobs:
            helm init --client-only
            helm repo add fdk https://informasjonsforvaltning.github.io/helm-chart/
            helm fetch --untar --untardir ./helm fdk/fdk-harvest-scheduler
-           helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest" -f ./helm/fdk-harvest-scheduler/values/production.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
+           helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:$GITHUB_SHA" -f ./helm/fdk-harvest-scheduler/values/production.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
            cat ./kubectlapply.yaml
            chmod o+w ./kubectlapply.yaml
            cat kubectlapply.yaml
@@ -78,3 +78,4 @@ jobs:
        with:
          token: ${{ secrets.DISPATCH_TOKEN }}
          event-type: deploy-demo
+         client-payload: '{"sha": "${{ github.sha }}"}'
