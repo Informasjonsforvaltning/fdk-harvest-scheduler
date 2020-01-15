@@ -11,7 +11,7 @@ if __name__ == '__main__':
     pipenv = '/usr/local/bin/pipenv'
     pipfile = Path.joinpath(ROOT_DIR, 'Pipfile')
     script = Path.joinpath(ROOT_DIR, 'jobs', 'harvest.py')
-    logfile = Path.joinpath(ROOT_DIR, 'jobs', 'make.log')
+    logfile = Path.joinpath(ROOT_DIR, 'jobs', 'cron.log')
 
     cron = CronTab(user=True)
     cron.remove_all()

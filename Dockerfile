@@ -8,5 +8,5 @@ RUN pip install pipenv
 RUN pipenv install
 RUN touch /app/cron.log
 
-RUN pipenv run python src/scheduler.py
+RUN pipenv run python -u src/scheduler.py
 CMD cron && tail -f /app/cron.log

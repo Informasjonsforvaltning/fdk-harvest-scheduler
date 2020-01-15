@@ -1,7 +1,11 @@
 import os
 import pika
+import logging
 
 if __name__ == '__main__':
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',level=logging.INFO)
+    logging.info('Starting cron job')
+
     host = os.getenv('RABBIT_HOST', 'rabbitmq')
     port = os.getenv('RABBIT_PORT', '5672')
     password = os.getenv('RABBIT_PASS', '')
@@ -21,5 +25,5 @@ if __name__ == '__main__':
     channel.basic_publish(exchange=exchange, routing_key=routing_key, body='{}', properties=pika.BasicProperties(
             content_type='application/json'
         ))
-    print(" [x] Sent %r:%r" % (routing_key, '{}'))
+    logging.info(" [x] Sent %r:%r" % (routing_key, '{}'))
     connection.close()
