@@ -1,9 +1,13 @@
 import os
 import pika
 import logging
+from pathlib import Path
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',level=logging.INFO)
+    ROOT_DIR = Path(__file__).parent.parent
+    logfile = Path.joinpath(ROOT_DIR, 'jobs', 'cron.log')
+
+    logging.basicConfig(filename=logfile, format='%(asctime)s %(levelname)s: %(message)s',level=logging.INFO)
     logging.info('Starting cron job')
 
     host = os.getenv('RABBIT_HOST', 'rabbitmq')

@@ -6,7 +6,7 @@ COPY . /app
 WORKDIR /app
 RUN pip install pipenv
 RUN pipenv install
-RUN touch /app/cron.log
+RUN touch /app/jobs/cron.log
 
 RUN pipenv run python -u src/scheduler.py
-CMD cron && tail -f /app/cron.log
+CMD cron && tail -f /app/jobs/cron.log
