@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  fdk-harvest-scheduler:
+    build: .
+    image: eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
+    depends_on:
+      - rabbitmq
+    ports:
+      - 8201:8201
+    environment:
+      - RABBIT_USER=admin
+      - RABBIT_PASS=admin
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - 5672:5672
+      - 15672:15672
