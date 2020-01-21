@@ -18,7 +18,7 @@ if __name__ == '__main__':
     cron.remove_all()
 
     cron_command = f'cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 {script} >> {logfile} 2>&1'
-    cron.new(command=cron_command).hour.every(6)
+    cron.new(command=cron_command).every(6).hours()
 
     cron.write()
 
