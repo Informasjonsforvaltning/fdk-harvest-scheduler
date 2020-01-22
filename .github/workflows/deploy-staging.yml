@@ -38,7 +38,6 @@ jobs:
             helm repo add fdk https://informasjonsforvaltning.github.io/helm-chart/
             helm fetch --untar --untardir ./helm fdk/fdk-harvest-scheduler
             helm template --set DOCKER_IMAGE_NAME="eu.gcr.io/fdk-infra/fdk-harvest-scheduler:$GITHUB_SHA" -f ./helm/fdk-harvest-scheduler/values/staging.yaml ./helm/fdk-harvest-scheduler/ > ./kubectlapply.yaml
-            cat ./kubectlapply.yaml
             chmod o+w ./kubectlapply.yaml
             cat kubectlapply.yaml
 
@@ -63,10 +62,3 @@ jobs:
         uses: pullreminders/slack-action@master
         with:
           args: '{\"channel\":\"C7NTH118T\",\"text\":\"Application fdk-harvest-scheduler deployed to staging\"}'
-
-      - name: Trigger deploy to ut1
-        uses: peter-evans/repository-dispatch@master
-        with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
-          event-type: deploy-ut1
-          client-payload: '{"sha": "${{ github.sha }}"}'
