@@ -3,7 +3,6 @@ version: "3"
 services:
   fdk-harvest-scheduler:
     build: .
-    image: eu.gcr.io/fdk-infra/fdk-harvest-scheduler:latest
     depends_on:
       - rabbitmq
     ports:
