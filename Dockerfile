@@ -13,4 +13,4 @@ RUN pipenv run python -u src/scheduler.py
 ## Environment variables does NOT get passed to cron,
 ## so they are invisible to the python script when run in cron.
 ## Therefore we need to write them to a file:
-CMD printenv >> .env && cron && tail -f /app/jobs/cron.log
+CMD printenv >> .env && cron && tail -F /app/jobs/cron.log
