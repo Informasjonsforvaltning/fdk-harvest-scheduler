@@ -3,6 +3,7 @@
 
 .env
 *.log
+*.iml
 
 .pytest_cache
 
