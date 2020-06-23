@@ -14,7 +14,7 @@ The fdk-harvest-scheduler creates a cron job  that will send a message to a Rabb
 % pipenv run python jobs/harvest.py
 ```
 
-## Test the schedulere locally
+## Test the scheduler locally
 
 ### Requirements
 - pipenv
