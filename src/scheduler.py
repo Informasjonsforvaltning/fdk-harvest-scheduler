@@ -8,8 +8,9 @@ if __name__ == "__main__":
 
     pipenv = "/usr/local/bin/pipenv"
     pipfile = Path.joinpath(ROOT_DIR, "Pipfile")
-    script = Path.joinpath(ROOT_DIR, "jobs", "harvest.py")
+    script_concepts = Path.joinpath(ROOT_DIR, "jobs", "harvest_concepts.py")
     script_datasets = Path.joinpath(ROOT_DIR, "jobs", "harvest_datasets.py")
+    script_dataservices = Path.joinpath(ROOT_DIR, "jobs", "harvest_dataservices.py")
     logfile = Path.joinpath(ROOT_DIR, "jobs", "cron.log")
 
     logging.basicConfig(
@@ -22,10 +23,16 @@ if __name__ == "__main__":
     cron = CronTab(user=True)
     cron.remove_all()
 
-    cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script} >> {logfile} 2>&1"
+    # Set up job for harvesting of concepts
+    cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script_concepts} >> {logfile} 2>&1"
     cron.new(command=cron_command).every(6).hours()
 
+    # Set up job for harvesting of datasets
     cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script_datasets} >> {logfile} 2>&1"
+    cron.new(command=cron_command).every(1).hours()
+
+    # Set up job for harvesting of dataservices
+    cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script_dataservices} >> {logfile} 2>&1"
     cron.new(command=cron_command).every(1).hours()
 
     cron.write()
