@@ -36,7 +36,7 @@ jobs:
           pytest
 
       - name: Publish docker image to Google Cloud
-        run: docker -- push eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler
+        run: docker -- push eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler -a
 
       - name: Apply Helm template
         run: |

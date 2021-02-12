@@ -26,7 +26,7 @@ jobs:
         run: docker build . -t eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler:$GITHUB_SHA -t eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler:staging_latest
 
       - name: Publish docker image to Google Cloud
-        run: docker -- push eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler
+        run: docker -- push eu.gcr.io/digdir-fdk-infra/fdk-harvest-scheduler -a
 
       - name: Apply Helm template
         run: |

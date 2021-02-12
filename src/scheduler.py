@@ -13,6 +13,7 @@ if __name__ == "__main__":
     script_dataservices = Path.joinpath(ROOT_DIR, "jobs", "harvest_dataservices.py")
     script_public_services = Path.joinpath(ROOT_DIR, "jobs", "harvest_public_services.py")
     script_informationmodels = Path.joinpath(ROOT_DIR, "jobs", "harvest_informationmodels.py")
+    script_compact_fuseki = Path.joinpath(ROOT_DIR, "jobs", "compact_fuseki.py")
     logfile = Path.joinpath(ROOT_DIR, "jobs", "cron.log")
 
     logging.basicConfig(
@@ -44,6 +45,10 @@ if __name__ == "__main__":
     # Set up job for harvesting of information models
     cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script_informationmodels} >> {logfile} 2>&1"
     cron.new(command=cron_command).every(6).hours()
+
+    # Set up job for compaction of Fuseki database
+    cron_command = f"cd /app && PIPENV_PIPFILE={pipfile} {pipenv} run python3 -u {script_compact_fuseki} >> {logfile} 2>&1"
+    cron.new(command=cron_command).setall('30 8,20 * * *')
 
     cron.write()
 
