@@ -45,7 +45,6 @@ jobs:
       caller_sha: ${{ github.sha }}
       repo: ${{ github.repository }}
       actor: ${{ github.actor }}
-      python_architecture: x64
       environment: staging
       cluster: digdir-fdk-dev
     secrets:
