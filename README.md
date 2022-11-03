@@ -1,6 +1,6 @@
 # fdk-harvest-scheduler
 
-The fdk-harvest-scheduler creates a cron job  that will send a message to a RabbitMQ every 6th hour.
+The fdk-harvest-scheduler creates a cron job that will send a message to a RabbitMQ every 6th hour.
 
 ## Test the job locally
 
