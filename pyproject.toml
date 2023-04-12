@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "fdk-harvest-scheduler"
+authors = ["terjesyl <terje.sylvarnes@digdir.no>"]
+description=""
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pika = "*"
+python-crontab = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
