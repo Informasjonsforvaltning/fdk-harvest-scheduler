@@ -4,7 +4,7 @@ RUN apt-get update && apt-get -y install cron
 
 COPY . /app
 WORKDIR /app
-RUN pip install poetry==1.4.2
+RUN pip install poetry==1.5.1
 RUN poetry install
 RUN poetry self add poetry-dotenv-plugin
 RUN touch /app/jobs/cron.log
