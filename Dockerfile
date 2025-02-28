@@ -1,10 +1,10 @@
-FROM python:3.11
+FROM python:3.13
 
 RUN apt-get update && apt-get -y install cron
 
 COPY . /app
 WORKDIR /app
-RUN pip install poetry==1.6.1
+RUN pip install poetry==1.8.5
 RUN poetry install
 RUN poetry self add poetry-dotenv-plugin
 RUN touch /app/jobs/cron.log

@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         filename=logfile,
-        format="%(asctime)s %(levelname)s: %(message)s",
+        format="%(asctime)s %(levelname)s: data services - %(message)s",
         level=logging.INFO,
     )
     logging.info("Starting cron job")
